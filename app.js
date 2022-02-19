@@ -18,8 +18,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 let d = require('./distances.js');
 
 app.get('/bar/get', (req, res) => {
-    console.log(req.body);
-    res.end("Hello World")
+    console.log(req.query.bar);
+    db.all("SELECT * FROM bars WHERE name=?", [req.query.bar], (err, rows) => {
+        if (err) {console.log(err)}
+        res.end(JSON.stringify(rows))
+    });
 });
 
 app.post('/bar/order', (req, res) => {
