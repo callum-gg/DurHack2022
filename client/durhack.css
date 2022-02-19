@@ -1,0 +1,14 @@
+body {
+    background-color: #68246D;
+    color:#FFF4FF;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#information {
+    background-color: #FFF4FF;
+    color:black
+}
+
+#LogoImage {
+    height:1em;
+}
