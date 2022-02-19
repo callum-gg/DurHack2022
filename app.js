@@ -68,6 +68,15 @@ app.post('/bar/order', (req, res) => {
 app.post('/bar/new', function (req, res) {
     let new_bar = req.body.new_bar;
 
+    // this adds the new bar to the table.
+    db.run(`INSERT INTO bars(name, coords) VALUES(?,?)`, [new_bar.name, new_bar.coords], function(err) {
+        if (err) {
+          return console.log(err.message);
+        }
+        // get the last insert id
+        console.log(`A row has been inserted with rowid ${this.lastID}`);
+      });
+
     db.all("SELECT * FROM bars", [], (err, rows) => {
         console.log(rows);
         d.work_out_all(new_bar, rows);
