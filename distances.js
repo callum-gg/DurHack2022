@@ -26,7 +26,6 @@ function work_out_all(new_bar, database_bar){
                 console.log(`A row has been inserted with rowid ${this.lastID}`);
               });
 
-
         })
         .catch(err => {
             console.log('Error: ', err.message);
