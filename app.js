@@ -25,6 +25,10 @@ app.get('/bar/get', (req, res) => {
     });
 });
 
+app.get('/bar/getAll', (req, res) => {
+    
+});
+
 app.post('/bar/order', (req, res) => {
     console.log(req.body);
     res.end("Hello World")
