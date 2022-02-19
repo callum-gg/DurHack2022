@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { spawn } = require('child_process');
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./data.sql');
 
@@ -26,11 +27,36 @@ app.get('/bar/get', (req, res) => {
 });
 
 app.get('/bar/getAll', (req, res) => {
-    
+    db.all("SELECT name, coords FROM bars", [], (err, rows) => {
+        if (err) {console.log(err)}
+        res.end(JSON.stringify(rows))
+    });
 });
 
 app.post('/bar/order', (req, res) => {
-    console.log(req.body);
+    let matrix = new Array(req.body.bars.length).fill(new Array(req.body.bars.length).fill(0));
+    db.all("SELECT * FROM distances", [], (err, rows) => {
+        if (err) {console.log(err)}
+        for (let i=0;i<req.body.bars.length;i++) {
+            for (let j=0; j<rows.length; j++) {
+                if (rows[j].bar1 === req.body.bars[i]) {
+                    matrix[req.body.bars.indexOf(rows[j].bar2)][0] = rows[j].duration;
+                } else if (rows[j].bar2 === req.body.bars[i]) {
+                    matrix[req.body.bars.indexOf(rows[j].bar1)][0] = rows[j].duration;
+                }
+            }
+        }
+        //run python
+        let dataToSend;
+        const python = spawn('python', ['solver.py', matrix]);
+        python.stdout.on('data', data => {
+            dataToSend = data.toString();
+        });
+        python.on('close', (code) => {
+            console.log(dataToSend)
+            //send data back to client
+        })
+    });
     res.end("Hello World")
 });
 
