@@ -13,11 +13,11 @@ function work_out_all(new_bar, database_bar){
         .then(res => {
     
             const dist = res.data.rows[0].elements;
-            console.log(dist);
 
-            let data_for_db = [new_bar.name, bar.name, dist[0].distance, dist[0].duration]
+            let data_for_db = [new_bar.name, bar.name, dist[0].distance.value, dist[0].duration.value]
 
             // adding it to the database
+            /*
             db.run(`INSERT INTO distances(bar1, bar2, distance, duration) VALUES(?,?,?,?)`, data_for_db, function(err) {
                 if (err) {
                   return console.log(err.message);
@@ -25,6 +25,7 @@ function work_out_all(new_bar, database_bar){
                 // get the last insert id
                 console.log(`A row has been inserted with rowid ${this.lastID}`);
               });
+              */
 
         })
         .catch(err => {
