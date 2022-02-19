@@ -31,3 +31,17 @@ function GetBarOrder(bars, start, end) {
 
     //})
 }
+
+function add_new_bar(new_bar) {
+    fetch('/bar/new', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({new_bar})
+    }).then(resp => {
+        //response = ordered array of college bars
+    })//.catch(err => {
+
+    //})
+}
