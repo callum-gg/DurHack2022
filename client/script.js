@@ -12,6 +12,7 @@ function GetBarData(bar) {
     fetch(`/bar/get?bar=${bar}`, {
         method: 'GET',
     }).then(resp => {
+        console.log(resp)
         //response = {coords, opening/closing, entrance, college drink, challenge}
     })//.catch(err => {
 

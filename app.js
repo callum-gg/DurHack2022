@@ -15,8 +15,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/bar/get', (req, res) => {
-    console.log(req.query);
-    res.end("Hello World")
+    console.log(req.query.bar);
+    db.all("SELECT * FROM bars WHERE name=?", [req.query.bar], (err, rows) => {
+        if (err) {console.log(err)}
+        res.end(JSON.stringify(rows))
+    });
 });
 
 app.post('/bar/order', (req, res) => {
