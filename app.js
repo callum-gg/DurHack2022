@@ -39,14 +39,18 @@ app.post('/bar/order', (req, res) => {
         if (err) {console.log(err)}
         for (let i=0;i<req.body.bars.length;i++) {
             for (let j=0; j<rows.length; j++) {
-                if (rows[j].bar1 === req.body.bars[i]) {
+                console.log(req.body.bars[i], rows[j].bar1, rows)
+                if (rows[j].bar1 === req.body.bars[i] && req.body.bars.indexOf(rows[j].bar2) !== -1) {
+                    console.log(req.body.bars.indexOf(rows[j].bar2), rows[j].duration)
                     matrix[req.body.bars.indexOf(rows[j].bar2)][0] = rows[j].duration;
-                } else if (rows[j].bar2 === req.body.bars[i]) {
+                } else if (rows[j].bar2 === req.body.bars[i] && req.body.bars.indexOf(rows[j].bar1) !== -1) {
+                    console.log(req.body.bars.indexOf(rows[j].bar1), rows[j].duration)
                     matrix[req.body.bars.indexOf(rows[j].bar1)][0] = rows[j].duration;
                 }
             }
         }
         //run python
+        console.log(matrix)
         let dataToSend;
         const python = spawn('python', ['solver.py', matrix]);
         python.stdout.on('data', data => {
