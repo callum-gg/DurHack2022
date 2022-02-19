@@ -39,7 +39,9 @@ app.post('/bar/new', function (req, res) {
     let new_bar = req.body.new_bar;
 
     db.all("SELECT * FROM bars", [], (err, rows) => {
+        console.log(rows);
         d.work_out_all(new_bar, rows);
+
     });
     
     res.end("Hello World")
