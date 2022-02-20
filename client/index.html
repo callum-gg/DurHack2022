@@ -22,9 +22,7 @@
   </div>
 
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Change this btn to lousias button
-</button>
+
 
 <!-- Modal got bits from boot -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -37,8 +35,21 @@
       <div id='choisingbars' class="modal-body">
 
       </div>
-      <div class="modal-footer" style="text-align: center;"><button type="button" onclick="add_bar()" class="btn btn-warning">Add Bar</button></div>
-      <br>
+
+      <div class="modal-footer" style="text-align: center;">
+
+        <div class="center mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Bar name:</label>
+          <input id="bar_name" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+        </div>
+        <div class="center mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Longatude and latude</label>
+          <input id="longlat" class="form-control" id="exampleFormControlInput1" placeholder="long, lat">
+        </div>
+
+          <button type="button" data-bs-dismiss="modal" onclick="add_bar()" class="btn btn-warning">Add Bar</button>
+        </div>
+
       <div class="modal-footer">
 
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -53,7 +64,7 @@
     <div style="height:270px"></div>
     <center><div class="container">
         <div class="row row-cols-1">
-          <div class="col"><div style="background-color:rgb(144,143,175); text-align:center; width:300px;position:sticky"><button type="button" class="btn" id="bars"><bold>College bars</bold></button></div></div>
+          <div class="col"><div style="background-color:rgb(144,143,175); text-align:center; width:300px;position:sticky"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><bold>College bars</bold></button></div></div>
           <div class="col"><div id="invisible">Column</div></div>
           <div class="col"><div id="eyeframe">Column</div>
           <div class="col" id="invisible">Column</div>

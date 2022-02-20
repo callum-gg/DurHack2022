@@ -91,7 +91,7 @@ function creat_bar_selctor(bars){
         console.log('div')
         document.getElementById("choisingbars").innerHTML += `
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+          <input class="form-check-input" type="checkbox" value="`+bar+`" id="flexCheckChecked" checked>
           <label class="form-check-label" for="flexCheckChecked">
             `+bar+`
           </label>
@@ -105,5 +105,23 @@ function creat_bar_selctor(bars){
 }
 
 function update_bar_crawl(){
+    // write code that works out what bars have been clicked
+
     console.log("cakks get bar crawl details")
+}
+
+function add_bar(){
+
+    const longlat = document.getElementById("longlat").value;
+    const bar_name = document.getElementById('bar_name').value;
+    const args = {"name": bar_name, "coords": longlat};
+
+    document.getElementById("longlat").value = '';
+    document.getElementById('bar_name').value = '';
+
+
+    add_new_bar(args);
+
+    location.reload();
+   
 }
