@@ -1,5 +1,6 @@
 """Simple Travelling Salesperson Problem (TSP) between cities."""
 import sys
+import json
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 
@@ -7,7 +8,7 @@ from ortools.constraint_solver import pywrapcp
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
-    data['distance_matrix'] = sys.argv[1]
+    data['distance_matrix'] = json.loads(sys.argv[1])
     data['num_vehicles'] = 1
     data['depot'] = 0
     return data
@@ -15,18 +16,21 @@ def create_data_model():
 
 def print_solution(manager, routing, solution):
     """Prints solution on console."""
-    print('Objective: {} miles'.format(solution.ObjectiveValue()))
+    #print('Objective: {} miles'.format(solution.ObjectiveValue()))
     index = routing.Start(0)
     plan_output = 'Route for vehicle 0:\n'
     route_distance = 0
+    output = []
     while not routing.IsEnd(index):
         plan_output += ' {} ->'.format(manager.IndexToNode(index))
+        output.append(manager.IndexToNode(index))
         previous_index = index
         index = solution.Value(routing.NextVar(index))
         route_distance += routing.GetArcCostForVehicle(previous_index, index, 0)
     plan_output += ' {}\n'.format(manager.IndexToNode(index))
-    print(plan_output)
+    #print(plan_output)
     plan_output += 'Route distance: {}miles\n'.format(route_distance)
+    print(json.dumps(output))
 
 
 def main():
