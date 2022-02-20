@@ -1,26 +1,28 @@
-body, html {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    height: 100%;
-  }
-  
+body, html{
+    height:100%;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    
+}
 .bg {
-/* The image used */
-    background-image: url("https://media.istockphoto.com/vectors/soda-can-illustration-vector-id652719172?k=20&m=652719172&s=612x612&w=0&h=xoHHxREtqL6otULVS1GshN_2S3sRSkesWRTpchVs4bw=");
-    back="fixed";
-    /* Full height */
+    background-image: url('main_tinny_1.png');
     height: 100%;
-  
-    /* Center and scale the image nicely */
     background-position: center;
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: cover;
-  }
+    background-size:contain}
 
-#information {
-    background-color: #ffffff;
-    color:black
+#container {
+    position:center;
+    height:50%
 }
 
-#LogoImage {
-    height:1em;
+#bars {
+    background-color: rgb(212, 196, 250);
+}
+#eyeframe {
+    background-color: rgb(212,196,250);
+    width:350px;
+}
+#invisible {
+    opacity:0;
 }
