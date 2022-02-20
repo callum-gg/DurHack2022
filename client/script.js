@@ -137,7 +137,7 @@ key=AIzaSyAaKfCdw4jDuY1rZcH_hMW3nCwKfM8uWLI
 &destination=${resp[resp.length-1].coords}`
 //&waypoints=`;
         if (resp.length > 2) {
-            url = `${url}&waypoints`
+            url = `${url}&waypoints=`
             for (var i=1; i<resp.length-1; i++) {
                 url = `${url}${resp[i].coords}|`
             }
