@@ -8,6 +8,8 @@
 //     })
 // }
 
+let number_bars = 0;
+
 function GetBarData(bar) {
     fetch(`/bar/get?bar=${bar}`, {
         method: 'GET',
@@ -84,21 +86,22 @@ function creat_bar_selctor(bars){
     // it then loops through adding a selctor for each bar
     for (let i = 0; i < bars.length; i++) {
         let bar = bars[i].name; // this stores the name of each bar
-        console.log(bar)
 
+
+        number_bars += 1; // this adds to the count of bars so i can loop through see if there dandylion
 
         let div = document.getElementById("choisingbars");
-        console.log('div')
+
         document.getElementById("choisingbars").innerHTML += `
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="`+bar+`" id="flexCheckChecked" checked>
+          <input class="form-check-input" type="checkbox" value="`+bar+`" id="bar_`+ i +`" checked>
           <label class="form-check-label" for="flexCheckChecked">
             `+bar+`
           </label>
         </div>
         `
     }
-     console.log(div_bars);
+
      document.getElementById("choices").appendChild(div_bars);
 
     
@@ -106,8 +109,30 @@ function creat_bar_selctor(bars){
 
 function update_bar_crawl(){
     // write code that works out what bars have been clicked
+    var bars_check = []
 
-    console.log("cakks get bar crawl details")
+    for (let i = 0; i < number_bars; i++) {
+
+        let bar_id = "bar_"+i;
+        let tick_box_name = document.getElementById(bar_id).value;
+        if (document.getElementById(bar_id).checked === true){
+            console.log(tick_box_name)
+            bars_check.push(tick_box_name);
+        }
+    };
+
+    console.log(bars_check)
+    fetch('/bar/order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tick_box_name)
+    }).then(resp => {
+        //response = ordered array of college bars
+    })//.catch(err => {
+
+    //})
 }
 
 function add_bar(){
