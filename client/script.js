@@ -122,6 +122,19 @@ function update_bar_crawl(){
     };
 
     console.log(bars_check)
+
+    // WORKS PERSENT OF ACHOLE
+    let amount_bars = bars_check.length;
+    let persent = (amount_bars/number_bars)*100
+    console.log(persent)
+
+    if (persent == 100){
+        alert("Please ring this number if you need help ... tel: 08009177650")
+    }
+
+    // adds the persent to div
+    document.getElementById("bar_percent").innerText = persent;
+
     fetch('/bar/order', {
         method: 'POST',
         headers: {
