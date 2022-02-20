@@ -107,7 +107,7 @@ function creat_bar_selctor(bars){
 function update_bar_crawl(){
     // write code that works out what bars have been clicked
     var bars_check = []
-    console.log("sd")
+ 
     for (let i = 0; i < number_bars; i++) {
 
     console.log("cakks get bar crawl details")
@@ -120,6 +120,13 @@ function update_bar_crawl(){
         }
     };
 
+    // workking out the persone tisr fdjgafmdf`
+    let persent = (bars_check.length / number_bars)*100;
+    document.getElementById("bar_percentage").innerText = persent + "%";
+
+    if (persent == 100){
+        alert("They are here if you need help here is a number too call:  0344 209 0754")
+    }
 
     console.log(bars_check)
     fetch('/bar/order', {
