@@ -7,7 +7,7 @@
 //         body: JSON.stringify({data: 'omg this is cool'})
 //     })
 // }
-
+let number_bars = 0;
 function GetBarData(bar) {
     fetch(`/bar/get?bar=${bar}`, {
         method: 'GET',
@@ -85,21 +85,20 @@ function creat_bar_selctor(bars){
     for (let i = 0; i < bars.length; i++) {
         let bar = bars[i].name; // this stores the name of each bar
         console.log(bar)
+        number_bars += 1;
 
 
-        let div = document.getElementById("choisingbars");
-        console.log('div')
+
+
         document.getElementById("choisingbars").innerHTML += `
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="`+bar+`" id="flexCheckChecked" checked>
+          <input class="form-check-input" type="checkbox" value="`+bar+`" id="bar_`+i+`" checked>
           <label class="form-check-label" for="flexCheckChecked">
             `+bar+`
           </label>
         </div>
         `
     }
-     console.log(div_bars);
-     document.getElementById("choices").appendChild(div_bars);
 
     
 }
@@ -107,10 +106,12 @@ function creat_bar_selctor(bars){
 function update_bar_crawl(){
     // write code that works out what bars have been clicked
     var bars_check = []
-
+    console.log("sd")
     for (let i = 0; i < number_bars; i++) {
 
+    console.log("cakks get bar crawl details")
         let bar_id = "bar_"+i;
+        console.log(bar_id)
         let tick_box_name = document.getElementById(bar_id).value;
         if (document.getElementById(bar_id).checked === true){
             console.log(tick_box_name)
@@ -118,20 +119,8 @@ function update_bar_crawl(){
         }
     };
 
+
     console.log(bars_check)
-
-    // WORKS PERSENT OF ACHOLE
-    let amount_bars = bars_check.length;
-    let persent = (amount_bars/number_bars)*100
-    console.log(persent)
-
-    if (persent == 100){
-        alert("Please ring this number if you need help ... tel: 08009177650")
-    }
-
-    // adds the persent to div
-    document.getElementById("bar_percent").innerText = persent;
-
     fetch('/bar/order', {
         method: 'POST',
         headers: {
@@ -142,7 +131,7 @@ function update_bar_crawl(){
         //response = ordered array of college bars
     })//.catch(err => {
 
-    console.log("cakks get bar crawl details")
+    //})
 }
 
 function add_bar(){
