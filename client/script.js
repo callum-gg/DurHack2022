@@ -82,10 +82,20 @@ window.addEventListener('load', function () {
 
 
 function creat_bar_selctor(bars){
-    
+    let div_bars = document.createElement("select");
+    div_bars.setAttribute("class", "selectpicker");
+
+    // TODO: work out how to add "multi to the ting"
+
+    console.log("here")
     // it then loops through adding a selctor for each bar
     for (let i = 0; i < bars.length; i++) {
         let bar = bars[i].name; // this stores the name of each bar
+        console.log(bar)
+        // adds a seltor in box
+
+
+    }
 
 
         number_bars += 1; // this adds to the count of bars so i can loop through see if there dandylion
@@ -100,7 +110,7 @@ function creat_bar_selctor(bars){
           </label>
         </div>
         `
-    }
+    
 
      document.getElementById("choices").appendChild(div_bars);
 
