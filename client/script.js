@@ -80,48 +80,18 @@ window.addEventListener('load', function () {
 
 
 function creat_bar_selctor(bars){
-    
+    let div_bars = document.createElement("select");
+    div_bars.setAttribute("class", "selectpicker");
+
+    // TODO: work out how to add "multi to the ting"
+
+    console.log("here")
     // it then loops through adding a selctor for each bar
     for (let i = 0; i < bars.length; i++) {
         let bar = bars[i].name; // this stores the name of each bar
         console.log(bar)
+        // adds a seltor in box
 
 
-        let div = document.getElementById("choisingbars");
-        console.log('div')
-        document.getElementById("choisingbars").innerHTML += `
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="`+bar+`" id="flexCheckChecked" checked>
-          <label class="form-check-label" for="flexCheckChecked">
-            `+bar+`
-          </label>
-        </div>
-        `
     }
-     console.log(div_bars);
-     document.getElementById("choices").appendChild(div_bars);
-
-    
-}
-
-function update_bar_crawl(){
-    // write code that works out what bars have been clicked
-
-    console.log("cakks get bar crawl details")
-}
-
-function add_bar(){
-
-    const longlat = document.getElementById("longlat").value;
-    const bar_name = document.getElementById('bar_name').value;
-    const args = {"name": bar_name, "coords": longlat};
-
-    document.getElementById("longlat").value = '';
-    document.getElementById('bar_name').value = '';
-
-
-    add_new_bar(args);
-
-    location.reload();
-   
 }
