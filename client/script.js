@@ -8,8 +8,6 @@
 //     })
 // }
 
-let number_bars = 0;
-
 function GetBarData(bar) {
     fetch(`/bar/get?bar=${bar}`, {
         method: 'GET',
@@ -27,7 +25,7 @@ function GetBarOrder(bars, start, end) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({bars, start, end})
-    }).then(resp => resp.json()).then(resp => {
+    }).then(resp => {
         //response = ordered array of college bars {name, time to next, coords}
         let url = `https://www.google.com/maps/embed/v1/directions?
 key=AIzaSyAaKfCdw4jDuY1rZcH_hMW3nCwKfM8uWLI
@@ -82,36 +80,25 @@ window.addEventListener('load', function () {
 
 
 function creat_bar_selctor(bars){
-    let div_bars = document.createElement("select");
-    div_bars.setAttribute("class", "selectpicker");
-
-    // TODO: work out how to add "multi to the ting"
-
-    console.log("here")
+    
     // it then loops through adding a selctor for each bar
     for (let i = 0; i < bars.length; i++) {
         let bar = bars[i].name; // this stores the name of each bar
         console.log(bar)
-        // adds a seltor in box
 
-
-    }
-
-
-        number_bars += 1; // this adds to the count of bars so i can loop through see if there dandylion
 
         let div = document.getElementById("choisingbars");
-
+        console.log('div')
         document.getElementById("choisingbars").innerHTML += `
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="`+bar+`" id="bar_`+ i +`" checked>
+          <input class="form-check-input" type="checkbox" value="`+bar+`" id="flexCheckChecked" checked>
           <label class="form-check-label" for="flexCheckChecked">
             `+bar+`
           </label>
         </div>
         `
-    
-
+    }
+     console.log(div_bars);
      document.getElementById("choices").appendChild(div_bars);
 
     
@@ -119,30 +106,8 @@ function creat_bar_selctor(bars){
 
 function update_bar_crawl(){
     // write code that works out what bars have been clicked
-    var bars_check = []
 
-    for (let i = 0; i < number_bars; i++) {
-
-        let bar_id = "bar_"+i;
-        let tick_box_name = document.getElementById(bar_id).value;
-        if (document.getElementById(bar_id).checked === true){
-            console.log(tick_box_name)
-            bars_check.push(tick_box_name);
-        }
-    };
-
-    console.log(bars_check)
-    fetch('/bar/order', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(tick_box_name)
-    }).then(resp => {
-        //response = ordered array of college bars
-    })//.catch(err => {
-
-    //})
+    console.log("cakks get bar crawl details")
 }
 
 function add_bar(){
