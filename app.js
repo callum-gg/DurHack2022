@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 let d = require('./distances.js');
+const { array } = require('assert-plus');
 
 app.get('/bar/get', (req, res) => {
     console.log(req.query.bar);
@@ -34,30 +35,44 @@ app.get('/bar/getAll', (req, res) => {
 });
 
 app.post('/bar/order', (req, res) => {
-    let matrix = new Array(req.body.bars.length).fill(new Array(req.body.bars.length).fill(0));
+    let matrix = [];
+    for (let i=0; i<req.body.bars.length; i++) {
+        matrix.push(new Array(req.body.bars.length).fill(0))
+    }
     db.all("SELECT * FROM distances", [], (err, rows) => {
         if (err) {console.log(err)}
         for (let i=0;i<req.body.bars.length;i++) {
             for (let j=0; j<rows.length; j++) {
-                if (rows[j].bar1 === req.body.bars[i]) {
-                    matrix[req.body.bars.indexOf(rows[j].bar2)][0] = rows[j].duration;
-                } else if (rows[j].bar2 === req.body.bars[i]) {
-                    matrix[req.body.bars.indexOf(rows[j].bar1)][0] = rows[j].duration;
+                if (rows[j].bar1 === req.body.bars[i] && req.body.bars.indexOf(rows[j].bar2) !== -1) {
+                    matrix[req.body.bars.indexOf(rows[j].bar2)][i] = rows[j].duration;
+                } else if (rows[j].bar2 === req.body.bars[i] && req.body.bars.indexOf(rows[j].bar1) !== -1) {
+                    matrix[req.body.bars.indexOf(rows[j].bar1)][i] = rows[j].duration;
                 }
             }
         }
         //run python
-        let dataToSend;
-        const python = spawn('python', ['solver.py', matrix]);
+        //console.log(matrix)
+        let shortestBars;
+        const python = spawn('python', ['solver.py', JSON.stringify(matrix)]);
         python.stdout.on('data', data => {
-            dataToSend = data.toString();
+            shortestBars = JSON.parse(data.toString());
         });
         python.on('close', (code) => {
-            console.log(dataToSend)
-            //send data back to client
+            let orderedBars = []
+            for (let i=0; i<shortestBars.length; i++) {
+                db.all("SELECT coords FROM bars WHERE name=?", [req.body.bars[i]], (err, coords) => {
+                    db.all("SELECT duration FROM distances WHERE (bar1=? AND bar2=?) OR (bar2=? AND bar1=?)", [req.body.bars[i], req.body.bars[i+1], req.body.bars[i], req.body.bars[i+1]], (err, duration) => {
+                        if (duration[0]) {
+                            orderedBars.push({name: req.body.bars[i], coords: coords[0].coords, time: duration[0].duration})
+                        } else {
+                            orderedBars.push({name: req.body.bars[i], coords: coords[0].coords, time: null})
+                            res.end(JSON.stringify(orderedBars))
+                        }
+                    })
+                })
+            }
         })
     });
-    res.end("Hello World")
 });
 
 // this is used when adding vote to a poll.

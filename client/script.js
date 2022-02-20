@@ -27,7 +27,7 @@ function GetBarOrder(bars, start, end) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({bars, start, end})
-    }).then(resp => {
+    }).then(resp => resp.json()).then(resp => {
         //response = ordered array of college bars {name, time to next, coords}
         let url = `https://www.google.com/maps/embed/v1/directions?
 key=AIzaSyAaKfCdw4jDuY1rZcH_hMW3nCwKfM8uWLI
