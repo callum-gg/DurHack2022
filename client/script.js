@@ -134,9 +134,20 @@ function update_bar_crawl(){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(tick_box_name)
-    }).then(resp => {
+        body: JSON.stringify({bars: bars_check})
+    }).then(resp => resp.json()).then(resp => {
         //response = ordered array of college bars
+        let url = `https://www.google.com/maps/embed/v1/directions?
+key=AIzaSyAaKfCdw4jDuY1rZcH_hMW3nCwKfM8uWLI
+&mode=walking
+&origin=${resp[0].coords}
+&destination=${resp[resp.length-1].coords}
+&waypoints=`;
+        for (var i=1; i<resp.length-1; i++) {
+            url = `${url}${resp[i].coords}|`
+        }
+
+        document.querySelector('#map').setAttribute("src", url.slice(0, -1))
     })//.catch(err => {
 
     //})
