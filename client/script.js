@@ -120,6 +120,9 @@ function update_bar_crawl(){
         }
     };
 
+    let persent = Math.floor((bars_check.length / number_bars)*100);
+    document.getElementById("bar_percentage").innerText = persent + "%"
+
 
     console.log(bars_check)
     fetch('/bar/order', {
@@ -163,4 +166,8 @@ function add_bar(){
 
     location.reload();
    
+}
+
+function go_btn(){
+    alert("Did you know that the Marys challenge is to run from Marys bar to Cuths with a shot in your mouth?")
 }
