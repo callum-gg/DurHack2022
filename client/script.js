@@ -106,6 +106,41 @@ function creat_bar_selctor(bars){
 
 function update_bar_crawl(){
     // write code that works out what bars have been clicked
+    var bars_check = []
+
+    for (let i = 0; i < number_bars; i++) {
+
+        let bar_id = "bar_"+i;
+        let tick_box_name = document.getElementById(bar_id).value;
+        if (document.getElementById(bar_id).checked === true){
+            console.log(tick_box_name)
+            bars_check.push(tick_box_name);
+        }
+    };
+
+    console.log(bars_check)
+
+    // WORKS PERSENT OF ACHOLE
+    let amount_bars = bars_check.length;
+    let persent = (amount_bars/number_bars)*100
+    console.log(persent)
+
+    if (persent == 100){
+        alert("Please ring this number if you need help ... tel: 08009177650")
+    }
+
+    // adds the persent to div
+    document.getElementById("bar_percent").innerText = persent;
+
+    fetch('/bar/order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tick_box_name)
+    }).then(resp => {
+        //response = ordered array of college bars
+    })//.catch(err => {
 
     console.log("cakks get bar crawl details")
 }
