@@ -8,6 +8,8 @@
 //     })
 // }
 
+let number_bars = 0;
+
 function GetBarData(bar) {
     fetch(`/bar/get?bar=${bar}`, {
         method: 'GET',
@@ -94,4 +96,67 @@ function creat_bar_selctor(bars){
 
 
     }
+
+
+        number_bars += 1; // this adds to the count of bars so i can loop through see if there dandylion
+
+        let div = document.getElementById("choisingbars");
+
+        document.getElementById("choisingbars").innerHTML += `
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="`+bar+`" id="bar_`+ i +`" checked>
+          <label class="form-check-label" for="flexCheckChecked">
+            `+bar+`
+          </label>
+        </div>
+        `
+    
+
+     document.getElementById("choices").appendChild(div_bars);
+
+    
+}
+
+function update_bar_crawl(){
+    // write code that works out what bars have been clicked
+    var bars_check = []
+
+    for (let i = 0; i < number_bars; i++) {
+
+        let bar_id = "bar_"+i;
+        let tick_box_name = document.getElementById(bar_id).value;
+        if (document.getElementById(bar_id).checked === true){
+            console.log(tick_box_name)
+            bars_check.push(tick_box_name);
+        }
+    };
+
+    console.log(bars_check)
+    fetch('/bar/order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tick_box_name)
+    }).then(resp => {
+        //response = ordered array of college bars
+    })//.catch(err => {
+
+    //})
+}
+
+function add_bar(){
+
+    const longlat = document.getElementById("longlat").value;
+    const bar_name = document.getElementById('bar_name').value;
+    const args = {"name": bar_name, "coords": longlat};
+
+    document.getElementById("longlat").value = '';
+    document.getElementById('bar_name').value = '';
+
+
+    add_new_bar(args);
+
+    location.reload();
+   
 }
