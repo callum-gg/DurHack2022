@@ -51,7 +51,6 @@ app.post('/bar/order', (req, res) => {
             }
         }
         //run python
-        //console.log(matrix)
         let shortestBars;
         const python = spawn('python', ['solver.py', JSON.stringify(matrix)]);
         python.stdout.on('data', data => {
