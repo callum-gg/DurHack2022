@@ -1,4 +1,3 @@
 # DurHack2022
 
-hey
-DurHack 4lyfe
+Webserver that uses a shortest path algorithm to calculate the most efficient bar crawl named Vinnie's Tinnies.
