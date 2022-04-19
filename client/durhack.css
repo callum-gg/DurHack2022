@@ -1,32 +1,79 @@
+:root {
+    --bg-margin: 20px;
+}
+
 body, html{
     height:100%;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     overflow: hidden;
 }
+
 .bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background-image: url('main_tinny_1.png');
-    height: 100%;
-    background-position: center;
-    background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size:contain}
+    background-position-x: center;
+    background-size: contain;
+    max-height: calc(100% - var(--bg-margin));
+    height: calc(100% - var(--bg-margin));
+    width: calc(100% - var(--bg-margin));
+    max-width: calc(100% - var(--bg-margin));
+}
+
+.bg-container {
+    aspect-ratio: 327 / 613;
+    max-height: calc(100% - var(--bg-margin));
+    max-width: calc(100% - var(--bg-margin));
+    margin: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
 
 #container {
     position:center;
     height:50%
 }
 
+#invisible {
+    opacity: 0;
+}
+
+.bars-btn {
+    margin-top: 54%;
+    width: 40%;
+    margin-left: 30%;
+}
+
+#map {
+    width: 100%;
+    margin-top: 6%;
+    height: 42%;
+}
+
+.bottom-can {
+    display: flex;
+    margin-top: 16%;
+    margin-left: 10%;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
 #bars {
     background-color: rgb(212, 196, 250);
+    width: 40%;
+    margin-right: 10%;
 }
-#eyeframe {
-    background-color: rgb(212,196,250);
-    width:350px;
-}
-#invisible {
-    opacity:0;
-}
+
 #bar_percentage {
     background-color: rgb(212,196,250);
-    width:50px
+    width: 40%;
+    height: 100%;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 250%;
 }

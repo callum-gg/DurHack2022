@@ -12,7 +12,7 @@
     <!-- Our CSS-->
     <link rel="stylesheet" type="text/css" href="durhack.css">
 </head>
-<body class="bg m-4">
+<body>
   <!-- Bootstrap bundle-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
@@ -21,60 +21,49 @@
     <!-- This is where the bar selction is added. -->
   </div>
 
-  <!-- Button trigger modal -->
-
-
-<!-- Modal got bits from boot -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Choise Bars:</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div id='choisingbars' class="modal-body">
-
-      </div>
-
-      <div class="modal-footer" style="text-align: center;">
-
-        <div class="center mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Bar name:</label>
-          <input id="bar_name" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+  <!-- Modal got bits from boot -->
+  <div class="modal fade" id="barsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Choose Bars:</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="center mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Longatude and latude</label>
-          <input id="longlat" class="form-control" id="exampleFormControlInput1" placeholder="long, lat">
-        </div>
+        <div id='choisingbars' class="modal-body"></div>
+
+        <div class="modal-footer" style="text-align: center;">
+
+          <div class="center mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Bar name:</label>
+            <input id="bar_name" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+          </div>
+          <div class="center mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Longatude and latude</label>
+            <input id="longlat" class="form-control" id="exampleFormControlInput1" placeholder="long, lat">
+          </div>
 
           <button type="button" data-bs-dismiss="modal" onclick="add_bar()" class="btn btn-warning">Add Bar</button>
         </div>
 
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" onclick="update_bar_crawl()" data-bs-dismiss="modal" class="btn btn-primary">Calculate Bar Crawl</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" onclick="update_bar_crawl()" data-bs-dismiss="modal" class="btn btn-primary">Calculate Bar Crawl</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<body>
-    <div class="bg">
-    <div style="height:245px; margin-top: 25px"></div>
-    <center><div class="container-md">
-        <div class="row row-cols-1">
-          <div class="col"><div style="background-color:rgb(144,143,175); text-align:center; width:300px;position:sticky;"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><bold>College bars</bold></button></div></div>
-          <div class="col"><div class="pt-4"><div id="eyeframe">
-            <iframe id="map"></iframe>
-          </div></div></center>
-          <div class="col"><div style="position:absolute; bottom:170px; left:130px"><button type="button" class="btn" id="bars">Go!</button></div>
-          <div class="col"><div style="position:absolute; bottom:175px; right:50px"><div id="bar_percentage">100%</div></div>
-        </div>
+  <div class="bg">
+    <div class="bg-container">
+      <button type="button" class="btn btn-primary bars-btn" data-bs-toggle="modal" data-bs-target="#barsModal"><b>College bars</b></button>
+    
+      <iframe id="map"></iframe>
+      
+      <div class="bottom-can">
+        <button type="button" class="btn" id="bars">Go!</button>
+        <div id="bar_percentage">100%</div>
+      </div>
     </div>
   </div>
-  
-
-
-  </body>
-  </html>
+</body>
+</html>
