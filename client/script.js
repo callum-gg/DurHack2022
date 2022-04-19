@@ -28,7 +28,7 @@ function GetBarOrder(bars, start, end) {
     }).then(resp => {
         //response = ordered array of college bars {name, time to next, coords}
         let url = `https://www.google.com/maps/embed/v1/directions?
-key=AIzaSyAaKfCdw4jDuY1rZcH_hMW3nCwKfM8uWLI
+key=AIzaSyDvBY_k1J6aWeB71ReE8EuC08jrf-dJYJ0
 &mode=walking
 &origin=${resp[0].coords}
 &destination=${resp[resp.length-1].coords}
@@ -66,30 +66,21 @@ function show_bar_choice(){
 
 window.addEventListener('load', function () {
     // This loads the bars to begin
-    console.log("here")
     fetch(`/bar/getAll`, {
         method: 'GET',
     }).then(resp => resp.json()).then(resp => {
-        console.log(resp)
-        // here it adds all the bars to the ingredence list selcting them
-
-        // here it calls a function that creats the div that lets you select the diffrent bars.
-        creat_bar_selctor(resp)
+        create_bar_selector(resp)
 
     })
 });
 
 
-function creat_bar_selctor(bars){
+function create_bar_selector(bars){
     
     // it then loops through adding a selctor for each bar
     for (let i = 0; i < bars.length; i++) {
         let bar = bars[i].name; // this stores the name of each bar
-        console.log(bar)
         number_bars += 1;
-
-
-
 
         document.getElementById("choisingbars").innerHTML += `
         <div class="form-check">
@@ -109,26 +100,21 @@ function update_bar_crawl(){
     var bars_check = []
  
     for (let i = 0; i < number_bars; i++) {
-
-    console.log("cakks get bar crawl details")
         let bar_id = "bar_"+i;
-        console.log(bar_id)
         let tick_box_name = document.getElementById(bar_id).value;
         if (document.getElementById(bar_id).checked === true){
-            console.log(tick_box_name)
             bars_check.push(tick_box_name);
         }
     };
 
     // workking out the persone tisr fdjgafmdf`
-    let persent = (bars_check.length / number_bars)*100;
-    document.getElementById("bar_percentage").innerText = persent + "%";
+    let percent = (bars_check.length / number_bars)*100;
+    document.getElementById("bar_percentage").innerText = percent + "%";
 
-    if (persent == 100){
+    if (percent == 100){
         alert("They are here if you need help here is a number too call:  0344 209 0754")
     }
 
-    console.log(bars_check)
     fetch('/bar/order', {
         method: 'POST',
         headers: {
@@ -138,7 +124,7 @@ function update_bar_crawl(){
     }).then(resp => resp.json()).then(resp => {
         //response = ordered array of college bars
         let url = `https://www.google.com/maps/embed/v1/directions?
-key=AIzaSyAaKfCdw4jDuY1rZcH_hMW3nCwKfM8uWLI
+key=AIzaSyDvBY_k1J6aWeB71ReE8EuC08jrf-dJYJ0
 &mode=walking
 &origin=${resp[0].coords}
 &destination=${resp[resp.length-1].coords}`
