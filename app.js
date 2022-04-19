@@ -93,6 +93,6 @@ app.post('/bar/new', function (req, res) {
 
     });
     
-    res.end("Hello World")
+    res.end("success")
 });
 app.listen(3000);
