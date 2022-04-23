@@ -22,7 +22,25 @@
   </div>
 
   <!-- Modal got bits from boot -->
-  <div class="modal fade" id="barsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login:</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-footer" style="text-align: center;">
+          <a class="google-cont" href="/login/federated/google">
+            <div class="google-img"></div>
+            <div class="google-text">Sign in with Google</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="barsModal" tabindex="-1" aria-labelledby="barsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -55,13 +73,13 @@
 
   <div class="bg">
     <div class="bg-container">
-      <button type="button" class="btn btn-primary bars-btn" data-bs-toggle="modal" data-bs-target="#barsModal"><b>College bars</b></button>
+      <button type="button" class="btn btn-primary bars-btn" data-bs-toggle="modal" data-bs-target="#loginModal" id="main-button"><b>Login</b></button>
     
       <iframe id="map"></iframe>
       
       <div class="bottom-can">
         <button type="button" class="btn" id="bars">Go!</button>
-        <div id="bar_percentage">100%</div>
+        <div id="bar_percentage"></div>
       </div>
     </div>
   </div>
