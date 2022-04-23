@@ -42,11 +42,20 @@ function show_bar_choice(){
 
 window.addEventListener('load', function () {
     // This loads the bars to begin
-    fetch(`/bar/getAll`, {
-        method: 'GET',
+    this.fetch(`/user/get`, {
+        method: 'GET'
     }).then(resp => resp.json()).then(resp => {
-        create_bar_selector(resp)
+        if (resp.loggedIn) {
+            document.getElementById('main-button').innerText = "College Bars";
+            document.getElementById('main-button').setAttribute("data-bs-target", "#barsModal");
 
+            fetch(`/bar/getAll`, {
+                method: 'GET',
+            }).then(resp => resp.json()).then(resp => {
+                create_bar_selector(resp)
+        
+            });
+        }
     })
 });
 
@@ -87,7 +96,7 @@ function update_bar_crawl(){
 
         // workking out the persone tisr fdjgafmdf`
         let percent = (bars_check.length / number_bars)*100;
-        document.getElementById("bar_percentage").innerText = percent + "%";
+        document.getElementById("bar_percentage").innerText = Math.round(percent) + "%";
 
         if (percent == 100){
             alert("They are here if you need help here is a number too call:  0344 209 0754")
