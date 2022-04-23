@@ -43,9 +43,10 @@ body, html{
 }
 
 .bars-btn {
+    min-width: 40%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 54%;
-    width: 40%;
-    margin-left: 30%;
 }
 
 #map {
@@ -76,4 +77,27 @@ body, html{
     border-radius: 5px;
     text-align: center;
     line-height: 250%;
+}
+
+.google-cont {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(180,180,180);
+    border-radius: 5px;
+}
+
+.google-img {
+    background-image: url("https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+
+.google-text {
+    font-size: 22px;
+    margin-left: 20px;
 }
