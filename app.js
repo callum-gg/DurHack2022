@@ -1,6 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { spawn } = require('child_process');
+//var indexRouter = require('./index');
+const authRouter = require('./auth');
+var logger = require('morgan');
+var session = require('express-session');
+var SQLiteStore = require('connect-sqlite3')(session);
+var path = require('path')
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./data.sql');
 
@@ -13,14 +19,33 @@ let db = new sqlite3.Database('./data.sql');
 
 const app = express();
 app.use(express.static('client'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  store: new SQLiteStore({ db: 'sessions.db', dir: './' })
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+//app.use('/', indexRouter);
+app.use('/', authRouter);
 
 let d = require('./distances.js');
-const { array } = require('assert-plus');
+// const { array } = require('assert-plus');
+
+app.get('/user/get', (req, res) => {
+    let returnData = {};
+    if (req.session.passport && req.session.passport.user) {
+        returnData.loggedIn = true;
+    } else {
+        returnData.loggedIn = false;
+    }
+
+    res.send(JSON.stringify(returnData))
+});
 
 app.get('/bar/get', (req, res) => {
-    console.log(req.query.bar);
     db.all("SELECT * FROM bars WHERE name=?", [req.query.bar], (err, rows) => {
         if (err) {console.log(err)}
         res.end(JSON.stringify(rows))
@@ -28,10 +53,12 @@ app.get('/bar/get', (req, res) => {
 });
 
 app.get('/bar/getAll', (req, res) => {
-    db.all("SELECT name, coords FROM bars", [], (err, rows) => {
-        if (err) {console.log(err)}
-        res.end(JSON.stringify(rows))
-    });
+    if (req.session.passport && req.session.passport.user) {
+        db.all("SELECT name, coords FROM bars WHERE userid=? OR userid IS NULL", [String(req.session.passport.user.id)], (err, rows) => {
+            if (err) {console.log(err)}
+            res.end(JSON.stringify(rows))
+        });
+    }
 });
 
 app.post('/bar/order', (req, res) => {
@@ -79,20 +106,15 @@ app.post('/bar/new', function (req, res) {
     let new_bar = req.body.new_bar;
 
     // this adds the new bar to the table.
-    db.run(`INSERT INTO bars(name, coords) VALUES(?,?)`, [new_bar.name, new_bar.coords], function(err) {
+    db.run(`INSERT INTO bars(name, coords, userid) VALUES(?,?,?)`, [new_bar.name, new_bar.coords, String(req.session.passport.user.id)], function(err) {
         if (err) {
           return console.log(err.message);
         }
         // get the last insert id
-        console.log(`A row has been inserted with rowid ${this.lastID}`);
+        db.all("SELECT * FROM bars", [], (err, rows) => {
+            d.work_out_all(new_bar, rows);
+            res.end("success")
+        });
       });
-
-    db.all("SELECT * FROM bars", [], (err, rows) => {
-        console.log(rows);
-        d.work_out_all(new_bar, rows);
-
-    });
-    
-    res.end("success")
 });
 app.listen(3000);
