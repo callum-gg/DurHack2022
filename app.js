@@ -38,6 +38,7 @@ app.get('/user/get', (req, res) => {
     let returnData = {};
     if (req.session.passport && req.session.passport.user) {
         returnData.loggedIn = true;
+        returnData.shareid = req.session.passport.user.share;
     } else {
         returnData.loggedIn = false;
     }
@@ -59,6 +60,53 @@ app.get('/bar/getAll', (req, res) => {
             res.end(JSON.stringify(rows))
         });
     }
+});
+
+let inUseShares = [];
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const shareLength = 8;
+function createShareId() {
+  let inUse = true;
+  let id = '';
+  while (inUse) {
+    for (let i=0; i<shareLength; i++) {
+      id += characters.charAt(Math.floor(Math.random() * characters.length))
+    }
+    if (!inUseShares.includes(id)) {
+      inUseShares.push(id);
+      inUse = false;
+    } else {
+      id = '';
+    }
+  }
+  return id
+}
+
+let shares = {}
+app.get('/share/get', (req, res) => {
+    if (shares[req.query.shareid]) {
+        res.end(JSON.stringify(shares[req.query.shareid]))
+    } else {
+        res.end(JSON.stringify({type: "Unknown"}))
+    }
+});
+
+app.post('/share/location', (req, res) => {
+    let shareid = createShareId();
+    shares[shareid] = {
+        type: "location",
+        location: req.body.location
+    }
+    res.end(JSON.stringify({shareid}));
+});
+
+app.post('/share/route', (req, res) => {
+    let shareid = createShareId();
+    shares[shareid] = {
+        type: "route",
+        route: req.body.route
+    }
+    res.end(JSON.stringify({shareid}));
 });
 
 app.post('/bar/order', (req, res) => {
