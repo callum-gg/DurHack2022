@@ -101,3 +101,43 @@ body, html{
     font-size: 22px;
     margin-left: 20px;
 }
+
+.bars-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+#linkAlert {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    z-index: 1061;
+    background-color: rgb(115, 222, 119);
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+
+#linkAlert > button {
+    border: none;
+    outline: none;
+    float: right;
+    background-color: transparent;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 5px;
+    margin-right: 3px;
+    font-size: 18px;
+}
