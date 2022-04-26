@@ -26,6 +26,11 @@
     <!-- This is where the bar selction is added. -->
   </div>
 
+  <div id="linkAlert">
+    Link copied!
+    <button onclick="this.parentNode.style.opacity = 0;"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
   <!-- Modal got bits from boot -->
   <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="false">
     <div class="modal-dialog">
@@ -73,12 +78,12 @@
         <div class="modal-footer" style="text-align: center;">
 
           <div class="center mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Bar name:</label>
-            <input id="bar_name" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+            <label for="bar_name" class="form-label">Bar name:</label>
+            <input id="bar_name" class="form-control" placeholder="Name">
           </div>
           <div class="center mb-3">
             <label for="exampleFormControlInput1" class="form-label">Longitude and Latitude:</label>
-            <input id="longlat" class="form-control" id="exampleFormControlInput1" placeholder="Longitude, Latitude">
+            <input id="longlat" class="form-control" placeholder="Longitude, Latitude">
           </div>
 
           <button type="button" data-bs-dismiss="modal" onclick="add_bar()" class="btn btn-warning">Add Bar</button>
